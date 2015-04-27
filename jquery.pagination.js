@@ -2,8 +2,8 @@
  * jquery.pagination.js
  * http://mricle.com/JqueryPagination
  * GitHub: https://github.com/mricle/pagination
- * Version: 1.2.2 beta
- * Date: 2015-4-14
+ * Version: 1.2.3
+ * Date: 2015-4-27
  * 
  * Copyright 2015 Mricle
  * Released under the MIT license
@@ -148,7 +148,7 @@
                 params = pageIndex;
                 pageIndex = null;
             }
-            if (!pageIndex) {
+            if (typeof pageIndex !== 'number') {
                 pageIndex = that.currentPageIndex;
             }
 
