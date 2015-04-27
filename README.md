@@ -1,5 +1,5 @@
 #Jquery Pagination Plugin [V1.2.2]
-a simage jquery pagination plugin
+a simple jquery pagination plugin
 
 ##Get Started
 include the library in the HEAD of your page:
