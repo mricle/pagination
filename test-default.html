@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>test - jquery.pagination.js</title>
+    <link href="jquery.pagination.css" rel="stylesheet" />
+    <script src="jquery-1.11.2.min.js"></script>
+    <script src="jquery.pagination-1.2.6.min.js"></script>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei';
+        }
+    </style>
+</head>
+<body>
+    <div style="width:1000px; margin:0 auto;">
+        <header>
+            <h1> jquery pagination plugin</h1>
+            <a href="http://mricle.com/JqueryPagination" target="_blank">mricle.com/JqueryPagination</a>
+            <br />
+            <a href="https://github.com/mricle/pagination" target="_blank">GitHub</a>
+        </header>
+        <section id="demo">
+            <h4>default demo</h4>
+            <div id="page" class="m-pagination"></div>
+            <div id="eventLog"></div>
+        </section>
+    </div>
+    <script>
+        $("#page").page({
+            debug: true,
+            showInfo: true,
+            showJump: true,
+            showPageSizes: true,
+            remote: {
+                url: 'data.json',
+                success: function (data) {
+                    $("#eventLog").append(' remote callback : ' + JSON.stringify(data) + '<br />');
+                }
+            }
+        });
+
+        $("#page").on("pageClicked", function (event, pageIndex) {
+            $("#eventLog").append('EventName = pageClicked , pageIndex = ' + pageIndex + '<br />');
+        }).on('jumpClicked', function (event, pageIndex) {
+            $("#eventLog").append('EventName = jumpClicked , pageIndex = ' + pageIndex + '<br />');
+        }).on('pageSizeChanged', function (event, pageSize) {
+            $("#eventLog").append('EventName = pageSizeChanged , pageSize = ' + pageSize + '<br />');
+        });
+    </script>
+</body>
+</html>
