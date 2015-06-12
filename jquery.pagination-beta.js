@@ -2,12 +2,19 @@
  * jQuery Pagination Plugin
  * http://mricle.com/JqueryPagination
  * GitHub: https://github.com/mricle/pagination
- * Version: 1.2.6
- * Date: 2015-5-22
+ * Version: 1.2.7-Beta
+ * Date: 2015-6-12
  * 
  * Copyright 2015 Mricle
  * Released under the MIT license
  */
+
+/*!
+ ***********************************************************
+        This version for development and test use only
+ ***********************************************************
+ */
+
 
 !function ($) {
     "use strict";
@@ -196,7 +203,10 @@
                 if (this.options.showInfo) this.$info.show();
             }
             else {
-                this.$element.empty();
+                this.$page.hide();
+                this.$size.hide();
+                this.$jump.hide();
+                this.$info.hide();
             }
         },
         _updateTotal: function (total) {
