@@ -4,7 +4,7 @@
  * GitHub: https://github.com/mricle/pagination
  * Version: 1.2.7-Beta
  * Date: 2015-6-12
- * 
+ *
  * Copyright 2015 Mricle
  * Released under the MIT license
  */
@@ -16,7 +16,7 @@
  */
 
 
-!function ($) {
+! function ($) {
     "use strict";
 
     var pageEvent = {
@@ -62,7 +62,7 @@
         this.options = $.extend(true, {}, defaultOption, $.fn.page.defaults, options);
         this.total = this.options.total || 0;
         this.options.pageSizeItems = this.options.pageSizeItems || [5, 10, 15, 20],
-        this.currentPageIndex = 0;
+            this.currentPageIndex = 0;
         this.currentPageSize = this.options.pageSize;
         this.pageCount = getPageCount(this.total, this.currentPageSize);
 
@@ -94,8 +94,16 @@
             that.$element.append(that.$info.hide());
             that._remoteOrRedner(0);
             that.$element
-                .on('click', { page: that }, function (event) { eventHandler(event); })
-                .on('change', { page: that }, function (event) { eventHandler(event); });
+                .on('click', {
+                    page: that
+                }, function (event) {
+                    eventHandler(event);
+                })
+                .on('change', {
+                    page: that
+                }, function (event) {
+                    eventHandler(event);
+                });
         }
 
         var eventHandler = function (event) {
@@ -106,8 +114,7 @@
                 that.$element.trigger(pageEvent.pageClicked, pageIndex);
                 that.debug('event[ pageClicked ] : pageIndex = ' + (pageIndex));
                 that._remoteOrRedner(pageIndex);
-            }
-            else if (event.type === 'click' && $target.data('pageBtn') === 'jump') {
+            } else if (event.type === 'click' && $target.data('pageBtn') === 'jump') {
                 var pageIndexStr = that.$jump.find('input').val();
                 if (checkIsPageNumber(pageIndexStr, that.pageCount)) {
                     var pageIndex = pageIndexStr - 1;
@@ -116,8 +123,7 @@
                     that._remoteOrRedner(pageIndex);
                 }
                 that.$jump.find('input').val(null);
-            }
-            else if (event.type === 'change' && $target.data('pageBtn') === 'size') {
+            } else if (event.type === 'change' && $target.data('pageBtn') === 'size') {
                 var pageSize = that.$size.find('select').val();
                 that.currentPageSize = pageSize;
                 that.$element.trigger(pageEvent.pageSizeChanged, pageSize);
@@ -128,11 +134,9 @@
 
         if (typeof this.options.total === 'undefined' && this.options.remote.url === null) {
             console && console.error("[init error] : the options must have the parameter of 'remote.url' or 'total'.");
-        }
-        else if (typeof this.options.total === 'undefined' && !this.options.loadFirstPage) {
+        } else if (typeof this.options.total === 'undefined' && !this.options.loadFirstPage) {
             console && console.error("[init error] : if you don't remote the first page. you must set the options or 'total'.");
-        }
-        else {
+        } else {
             init(this);
         }
     }
@@ -198,11 +202,9 @@
                 if (this.options.showPageSizes) this.$size.show();
                 if (this.options.showJump) this.$jump.show();
                 if (this.options.showInfo) this.$info.show();
-            }
-            else if (this.pageCount == 1) {
+            } else if (this.pageCount == 1) {
                 if (this.options.showInfo) this.$info.show();
-            }
-            else {
+            } else {
                 this.$page.hide();
                 this.$size.hide();
                 this.$jump.hide();
@@ -231,14 +233,13 @@
         return infoFormat.replace('{start}', startNum).replace('{end}', endNum).replace('{total}', total);
     }
     var renderPages = function (pageIndex, pageSize, total, pageBtnCount, firstBtnText, lastBtnText, prevBtnText, nextBtnText, showFirstLastBtn) {
-        pageIndex = pageIndex == undefined ? 1 : parseInt(pageIndex) + 1;      //set pageIndex from 1， convenient calculation page
+        pageIndex = pageIndex == undefined ? 1 : parseInt(pageIndex) + 1; //set pageIndex from 1， convenient calculation page
         var pageCount = getPageCount(total, pageSize);
         var html = [];
 
         if (pageCount <= pageBtnCount) {
             html = renderPage(1, pageCount, pageIndex);
-        }
-        else {
+        } else {
             var firstPage = renderPerPage(firstBtnText || 1, 0);
             var lastPage = renderPerPage(lastBtnText || pageCount, pageCount - 1);
 
@@ -260,11 +261,10 @@
                     html.push(nextPage);
                     html.push(lastPage);
                 } else {
-                    html = renderPagenderPage(1, pageBtnCount - 1, pageIndex);
+                    html = renderPage(1, pageBtnCount - 1, pageIndex);
                     html.push(nextPage);
                 }
-            }
-            else if (pageIndex > behindBtnNum) {
+            } else if (pageIndex > behindBtnNum) {
                 if (showFirstLastBtn) {
                     html = renderPage(pageCount - pageBtnCount + 3, pageBtnCount - 2, pageIndex);
                     html.unshift(prevPage);
@@ -273,8 +273,7 @@
                     html = renderPage(pageCount - pageBtnCount + 2, pageBtnCount - 1, pageIndex);
                     html.unshift(prevPage);
                 }
-            }
-            else {
+            } else {
                 if (showFirstLastBtn) {
                     html = renderPage(pageIndex - symmetryBtnCount, pageBtnCount - 4, pageIndex);
                     html.unshift(prevPage);
@@ -319,13 +318,11 @@
                 var a = arr[i].split('=');
                 newParams[a[0]] = decodeURIComponent(a[1]);
             }
-        }
-        else if (params instanceof Array) {
+        } else if (params instanceof Array) {
             for (var i = 0; i < params.length; i++) {
                 newParams[params[i].name] = decodeURIComponent(params[i].value);
             }
-        }
-        else if (typeof params === 'object') {
+        } else if (typeof params === 'object') {
             newParams = params;
         }
         return newParams;
@@ -369,11 +366,9 @@
                 var data_api_options = $this.data();
                 options = $.extend(options, data_api_options);
                 $this.data('page', (data = new Page(this, options)));
-            }
-            else if (data && typeof option === 'string') {
+            } else if (data && typeof option === 'string') {
                 data[option].apply(data, Array.prototype.slice.call(args, 1));
-            }
-            else if (!data) {
+            } else if (!data) {
                 console && console.error("jQuery Pagination Plugin is uninitialized.");
             }
         });
